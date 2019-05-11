@@ -1,0 +1,41 @@
+{
+  "name": "superquad",
+  "version": "0.1.0",
+  "description": "A modern quadtree for modern games and projects",
+  "main": "index.js",
+  "module": "superquad.js",
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch",
+    "build": "npm run build:types && npm run build:js",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
+    "bundle": "rollup -c",
+    "bundle:watch": "rollup -c --watch",
+    "test": "mocha"
+  },
+  "keywords": [
+    "quad",
+    "quadtree",
+    "search",
+    "game",
+    "games"
+  ],
+  "author": "Robert Corponoi <robertcorponoi@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-typescript": "^7.3.3",
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
+    "rollup": "^1.11.2",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-commonjs": "^9.3.4",
+    "rollup-plugin-node-resolve": "^4.2.3",
+    "typescript": "^3.4.5"
+  }
+}
