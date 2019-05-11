@@ -122,3 +122,11 @@ Clears all objects from the each quad in the quadtree.
 ```js
 superquad.clear();
 ```
+
+## **Acknowledgements**
+
+This package is based on Timo Hausmann [Quadtree implementation](https://github.com/timohausmann/quadtree-js) and also JamesMilnerUK's [Go Quadtree implementation](https://github.com/JamesMilnerUK/quadtree-go).
+
+## License
+
+MIT
