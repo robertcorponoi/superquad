@@ -2,15 +2,11 @@
 
 /**
  * The bounds of an object describes its position within the space of the quadtree.
- * 
- * @version 0.1.0
  */
 export default class Bounds {
 
   /**
    * The x position of the object. 
-   * 
-   * @since 0.1.0
    * 
    * @property {number}
    */
@@ -19,8 +15,6 @@ export default class Bounds {
   /**
    * The y position of the object. 
    * 
-   * @since 0.1.0
-   * 
    * @property {number}
    */
   y: number;
@@ -28,16 +22,12 @@ export default class Bounds {
   /**
    * The width of the object. 
    * 
-   * @since 0.1.0
-   * 
    * @property {number}
    */
   width: number;
 
   /**
    * The height of the object. 
-   * 
-   * @since 0.1.0
    * 
    * @property {number}
    */
@@ -62,8 +52,6 @@ export default class Bounds {
    * Checks to see if this Bounds object is a point, meaning it has no width
    * or height.
    * 
-   * @since 0.1.0
-   * 
    * @returns {boolean}
    */
   public isPoint(): boolean {
@@ -76,8 +64,6 @@ export default class Bounds {
 
   /**
    * Checks to see if this Bounds object intersects with another.
-   * 
-   * @since 0.1.0
    * 
    * @param {Bounds} bounds The other bounds object to check for intersection with.
    * 

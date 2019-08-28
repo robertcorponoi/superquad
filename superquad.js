@@ -41,15 +41,11 @@ function () {
   /**
    * The x position of the object. 
    * 
-   * @since 0.1.0
-   * 
    * @property {number}
    */
 
   /**
    * The y position of the object. 
-   * 
-   * @since 0.1.0
    * 
    * @property {number}
    */
@@ -57,15 +53,11 @@ function () {
   /**
    * The width of the object. 
    * 
-   * @since 0.1.0
-   * 
    * @property {number}
    */
 
   /**
    * The height of the object. 
-   * 
-   * @since 0.1.0
    * 
    * @property {number}
    */
@@ -93,8 +85,6 @@ function () {
    * Checks to see if this Bounds object is a point, meaning it has no width
    * or height.
    * 
-   * @since 0.1.0
-   * 
    * @returns {boolean}
    */
 
@@ -107,8 +97,6 @@ function () {
     }
     /**
      * Checks to see if this Bounds object intersects with another.
-     * 
-     * @since 0.1.0
      * 
      * @param {Bounds} bounds The other bounds object to check for intersection with.
      * 
@@ -138,8 +126,6 @@ var Options =
  * The maximum number of objects that can be stored in a quad before the
  * quad splits.
  * 
- * @since 0.1.0
- * 
  * @property {number}
  * 
  * @default 4
@@ -147,8 +133,6 @@ var Options =
 
 /**
  * The maximum number of times a quad can split.
- * 
- * @since 0.1.0
  * 
  * @property {number}
  * 
@@ -172,8 +156,6 @@ function Options(options) {
 
 /**
  * A modern quadtree implementation for modern JavaScript games.
- * 
- * @version 0.1.0
  */
 
 var Superquad =
@@ -182,15 +164,11 @@ function () {
   /**
    * A reference to the options for this Quad.
    * 
-   * @since 0.1.0
-   * 
    * @property {Options}
    */
 
   /**
    * The depth level of this quad.
-   * 
-   * @since 0.1.0
    * 
    * @property {number}
    */
@@ -198,15 +176,11 @@ function () {
   /**
    * The bounds of this quad (x, y, width, height).
    * 
-   * @since 0.1.0
-   * 
    * @property {Bounds}
    */
 
   /**
    * The objects stored in this quad.
-   * 
-   * @since 0.1.0
    * 
    * @property {Array<Bounds>}
    */
@@ -214,15 +188,11 @@ function () {
   /**
    * The subquads of this quad.
    * 
-   * @since 0.1.0
-   * 
    * @property {Array<Superquad>}
    */
 
   /**
    * The total number of objects stored in this quad.
-   * 
-   * @since 0.1.0
    * 
    * @property {number}
    */
@@ -255,8 +225,6 @@ function () {
   }
   /**
    * Gets the total number of subquads within the main quad.
-   * 
-   * @since 0.1.0
    * 
    * @returns {number}
    */
@@ -296,8 +264,6 @@ function () {
     /**
      * Inserts an object into the quad and splits the quad if necessary.
      * 
-     * @since 0.1.0
-     * 
      * @param {Object} o The bounds of the object to insert into the quad.
      */
 
@@ -331,8 +297,6 @@ function () {
     }
     /**
      * Retrieves objects around the specified bounds.
-     * 
-     * @since 0.1.0
      * 
      * @param {Object} o The bounds of the object to check for possible collisions.
      * @param {boolean} [del=false] Set to true to delete the objects that were found.
@@ -390,8 +354,6 @@ function () {
     /**
      * Retrieves all points in this quad that collide.
      * 
-     * @since 0.1.0
-     * 
      * @param {Object} o The object to check for colliding points.
      * @param {boolean} [del=false] Set to true to delete the points that were found.
      * 
@@ -436,8 +398,6 @@ function () {
     }
     /**
      * Retries all bounds in this quad that intersect with the provided bounds.
-     * 
-     * @since 0.1.0
      * 
      * @param {Object} obj The bounds to check collisions against.
      * @param {boolean} [del=false] Set to true to delete the intersections that were found.
@@ -485,8 +445,6 @@ function () {
     }
     /**
      * Clears all objects and nodes from the quad.
-     * 
-     * @since 0.1.0
      */
 
   }, {
@@ -524,7 +482,6 @@ function () {
      * Checks to see if an object needs to be deleted from the quad and if so it deletes
      * it.
      * 
-     * @since 0.1.0
      * @private
      * 
      * @param {Superquad} quad The quad that the object belongs to.
@@ -541,7 +498,6 @@ function () {
     /**
      * Returns the part of the quad where the object should be placed.
      * 
-     * @since 0.1.0
      * @private
      * 
      * @param {Bounds} bounds The bounds to check the placement of.
@@ -569,7 +525,6 @@ function () {
     /**
      * Splits a quad into 4 subquads.
      * 
-     * @since 0.1.0
      * @private
      */
 
