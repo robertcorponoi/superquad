@@ -5,15 +5,11 @@ import Options from './Options';
 
 /**
  * A modern quadtree implementation for modern JavaScript games.
- * 
- * @version 0.1.0
  */
 export default class Superquad {
 
   /**
    * A reference to the options for this Quad.
-   * 
-   * @since 0.1.0
    * 
    * @property {Options}
    */
@@ -22,16 +18,12 @@ export default class Superquad {
   /**
    * The depth level of this quad.
    * 
-   * @since 0.1.0
-   * 
    * @property {number}
    */
   level: number;
 
   /**
    * The bounds of this quad (x, y, width, height).
-   * 
-   * @since 0.1.0
    * 
    * @property {Bounds}
    */
@@ -40,8 +32,6 @@ export default class Superquad {
   /**
    * The objects stored in this quad.
    * 
-   * @since 0.1.0
-   * 
    * @property {Array<Bounds>}
    */
   objects: Array<Bounds> = [];
@@ -49,16 +39,12 @@ export default class Superquad {
   /**
    * The subquads of this quad.
    * 
-   * @since 0.1.0
-   * 
    * @property {Array<Superquad>}
    */
   nodes: Array<Superquad> = [];
 
   /**
    * The total number of objects stored in this quad.
-   * 
-   * @since 0.1.0
    * 
    * @property {number}
    */
@@ -82,8 +68,6 @@ export default class Superquad {
   /**
    * Gets the total number of subquads within the main quad.
    * 
-   * @since 0.1.0
-   * 
    * @returns {number}
    */
   totalNodes(): number {
@@ -104,8 +88,6 @@ export default class Superquad {
 
   /**
    * Inserts an object into the quad and splits the quad if necessary.
-   * 
-   * @since 0.1.0
    * 
    * @param {Object} o The bounds of the object to insert into the quad.
    */
@@ -154,8 +136,6 @@ export default class Superquad {
   /**
    * Retrieves objects around the specified bounds.
    * 
-   * @since 0.1.0
-   * 
    * @param {Object} o The bounds of the object to check for possible collisions.
    * @param {boolean} [del=false] Set to true to delete the objects that were found.
    * 
@@ -199,8 +179,6 @@ export default class Superquad {
   /**
    * Retrieves all points in this quad that collide.
    * 
-   * @since 0.1.0
-   * 
    * @param {Object} o The object to check for colliding points.
    * @param {boolean} [del=false] Set to true to delete the points that were found.
    * 
@@ -232,8 +210,6 @@ export default class Superquad {
 
   /**
    * Retries all bounds in this quad that intersect with the provided bounds.
-   * 
-   * @since 0.1.0
    * 
    * @param {Object} obj The bounds to check collisions against.
    * @param {boolean} [del=false] Set to true to delete the intersections that were found.
@@ -268,8 +244,6 @@ export default class Superquad {
 
   /**
    * Clears all objects and nodes from the quad.
-   * 
-   * @since 0.1.0
    */
   clear() {
 
@@ -287,7 +261,6 @@ export default class Superquad {
    * Checks to see if an object needs to be deleted from the quad and if so it deletes
    * it.
    * 
-   * @since 0.1.0
    * @private
    * 
    * @param {Superquad} quad The quad that the object belongs to.
@@ -302,7 +275,6 @@ export default class Superquad {
   /**
    * Returns the part of the quad where the object should be placed.
    * 
-   * @since 0.1.0
    * @private
    * 
    * @param {Bounds} bounds The bounds to check the placement of.
@@ -340,7 +312,6 @@ export default class Superquad {
   /**
    * Splits a quad into 4 subquads.
    * 
-   * @since 0.1.0
    * @private
    */
   private split() {
