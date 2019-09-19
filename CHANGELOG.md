@@ -1,4 +1,8 @@
-0.1.2 / 2019-08-27
+0.1.4 / 2019-09-18
+==================
+* [FEATURE] Updated all dev dependencies to their latest versions.
+
+0.1.3 / 2019-08-27
 ==================
 * [FEATURE] Removed Unnecessary since comments.
 
