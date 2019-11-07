@@ -1,6 +1,6 @@
 {
   "name": "superquad",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A modern quadtree for modern games and projects",
   "main": "index.js",
   "module": "superquad.js",
@@ -19,23 +19,29 @@
     "quadtree",
     "search",
     "game",
-    "games"
+    "games",
+    "collision",
+    "detection"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/robertcorponoi/superquad"
+  },
   "author": "Robert Corponoi <robertcorponoi@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@babel/cli": "^7.6.0",
-    "@babel/core": "^7.6.0",
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
-    "@babel/preset-env": "^7.6.0",
-    "@babel/preset-typescript": "^7.6.0",
+    "@babel/cli": "^7.7.0",
+    "@babel/core": "^7.7.2",
+    "@babel/plugin-proposal-class-properties": "^7.7.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/preset-typescript": "^7.7.2",
     "chai": "^4.2.0",
-    "mocha": "^6.2.0",
-    "rollup": "^1.21.4",
+    "mocha": "^6.2.2",
+    "rollup": "^1.26.3",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
-    "typescript": "^3.6.3"
+    "typescript": "^3.7.2"
   }
 }
