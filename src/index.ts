@@ -1,7 +1,7 @@
 'use strict'
 
-import Bounds from './Bounds';
-import Options from './Options';
+import Bounds from './bounds/Bounds';
+import Options from './options/Options';
 
 /**
  * A modern quadtree implementation for modern JavaScript games.

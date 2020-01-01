@@ -7,7 +7,7 @@ const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 
 export default {
 
-  input: './src/Superquad.ts',
+  input: './src/index.ts',
 
   external: [],
 

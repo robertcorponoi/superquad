@@ -1,27 +1,45 @@
-# Superquad
+<p align="center">
+  <img width="250" height="250" src="https://github.com/robertcorponoi/graphics/blob/master/superquad/superquad-logo.png?raw=true">
+</p>
 
-Superquad is yet another quadtree implementation for JavaScript that hopes to provide some additional functionality on top of standard quadtree implementations.
+<h1 align="center">Superquad</h1>
 
-Superquad is always being improved with much more functionality including the ability to perform collision checks on objects that are not rectangular so stay tuned!
+<p align="center">Superquad is yet another quadtree implementation for JavaScript that hopes to provide some additional functionality on top of standard quadtree implementations.<p>
+
+<div align="center">
+
+  [![NPM version](https://img.shields.io/npm/v/superquad.svg?style=flat)](https://www.npmjs.com/package/superquad)
+  [![Known Vulnerabilities](https://snyk.io/test/github/robertcorponoi/superquad/badge.svg)](https://snyk.io/test/github/robertcorponoi/superquad)
+  ![npm](https://img.shields.io/npm/dt/superquad)
+  [![NPM downloads](https://img.shields.io/npm/dm/superquad.svg?style=flat)](https://www.npmjs.com/package/superquad)
+  <a href="https://badge.fury.io/js/superquad"><img src="https://img.shields.io/github/issues/robertcorponoi/superquad.svg" alt="issues" height="18"></a>
+  <a href="https://badge.fury.io/js/superquad"><img src="https://img.shields.io/github/license/robertcorponoi/superquad.svg" alt="license" height="18"></a>
+  [![Gitter](https://badges.gitter.im/gitterHQ/gitter.svg)](https://gitter.im/robertcorponoi)
+
+</div>
 
 ## **Install**
 
 Superquad is offered as both a Node package and an ES6 module. To download Superquad through npm, use:
 
 ```bash
-$ npm install Superquad
+$ npm install superquad
 ```
 
 and to use it, you can either require it or import it if you're in a browser environment:
 
 In Node.js:
 ```js
-const Superquad = require('Superquad');
+const Superquad = require('superquad');
 ```
 
 In a browser environment:
 ```js
-import Superquad from './path/to/Superquad.js';
+// Browser
+import Superquad from 'node_modules/superquad/superquad.js';
+
+// Webpack
+import Superquad from 'superquad';
 ```
 
 ## **Usage**
