@@ -7,7 +7,6 @@ import Options from './options/Options';
  * A modern quadtree implementation for modern JavaScript games.
  */
 export default class Superquad {
-
   /**
    * A reference to the options for this Quad.
    * 
@@ -56,13 +55,11 @@ export default class Superquad {
    * @param {number} [level=0] The depth level of this quad.
    */
   constructor(bounds: Object, options: Object, level: number = 0) {
-
     this.bounds = new Bounds(bounds);
 
     this.options = new Options(options);
 
     this.level = level;
-
   }
 
   /**
@@ -71,19 +68,15 @@ export default class Superquad {
    * @returns {number}
    */
   totalNodes(): number {
-
     let total: number = 0;
 
     for (const node of this.nodes) {
-
       total++;
 
       total += node.totalNodes();
-
     }
 
     return total;
-
   }
 
   /**
@@ -92,7 +85,6 @@ export default class Superquad {
    * @param {Object} o The bounds of the object to insert into the quad.
    */
   add(o: Object) {
-
     const bounds: Bounds = new Bounds(o);
 
     this.total++;
@@ -101,36 +93,26 @@ export default class Superquad {
     let index: number = 0;
 
     if (this.nodes[0]) {
-
       index = this.getIndex(bounds);
 
       if (index !== -1) {
-
         this.nodes[index].add(bounds);
 
         return;
-
       }
-
     }
 
     this.objects.push(bounds);
 
     if (this.objects.length > this.options.maxObjects && this.level < this.options.maxLevels) {
-
       if (!this.nodes[0]) this.split();
-
       while (i < this.objects.length) {
-
         index = this.getIndex(this.objects[i]);
 
         if (index !== -1) this.nodes[index].add(this.objects.splice(i, 1)[0]);
         else i = i + 1;
-
       }
-
     }
-
   }
 
   /**
@@ -142,7 +124,6 @@ export default class Superquad {
    * @returns {Array<Bounds>} 
    */
   get(o: Object, del: boolean = false): (Array<Bounds> | any) {
-
     let quad: Superquad = this;
 
     const bounds: Bounds = new Bounds(o);
@@ -152,28 +133,21 @@ export default class Superquad {
     let returnObjects: Array<Bounds> = this.objects;
 
     if (this.nodes[0]) {
-
       if (index !== -1) {
-
         returnObjects = returnObjects.concat(this.nodes[index].get(o, del));
 
         quad = this.nodes[index];
-
       }
       else for (const node of this.nodes) {
-
         returnObjects = returnObjects.concat(node.get(o, del));
 
         quad = node;
-
       }
-
     }
 
     if (del) return { quad: quad, objects: returnObjects };
 
     return returnObjects;
-
   }
 
   /**
@@ -185,7 +159,6 @@ export default class Superquad {
    * @returns {Array<Bounds>}
    */
   getPoints(o: Object, del: boolean = false): Array<Bounds> {
-
     const bounds: Bounds = new Bounds(o);
 
     let points: Array<Bounds> = [];
@@ -195,17 +168,14 @@ export default class Superquad {
     if (del) search = search.objects;
 
     for (const point of search) {
-
       const sameCoords: boolean = point.x === bounds.x && point.y === bounds.y;
 
       if (sameCoords && point.isPoint()) points.push(point);
 
       if (del) this.cleanup(search.quad, point);
-
     }
 
     return points;
-
   }
 
   /**
@@ -217,7 +187,6 @@ export default class Superquad {
    * @returns {Array<Bounds>}
    */
   getIntersections(obj: Bounds, del: boolean = false): Array<Bounds> {
-
     const bounds: Bounds = new Bounds(obj);
 
     const intersections: Array<Bounds> = [];
@@ -227,26 +196,20 @@ export default class Superquad {
     const objects = del ? results.objects : results;
 
     for (const intersection of objects) {
-
       if (intersection.intersects(bounds)) {
-
         intersections.push(intersection);
 
         if (del) this.cleanup(results.quad, intersection);
-
       }
-
     }
 
     return intersections;
-
   }
 
   /**
    * Clears all objects and nodes from the quad.
    */
   clear() {
-
     this.objects = [];
 
     this.total = 0;
@@ -254,7 +217,6 @@ export default class Superquad {
     for (const node of this.nodes) node.clear();
 
     this.nodes = [];
-
   }
 
   /**
@@ -267,9 +229,7 @@ export default class Superquad {
    * @param {Bounds} bounds The bounds that define the objects.
    */
   private cleanup(quad: Superquad, bounds: Bounds) {
-
     quad.objects = quad.objects.filter((o) => o != bounds);
-
   }
 
   /**
@@ -282,7 +242,6 @@ export default class Superquad {
    * @returns {number} Returns -1 through 3 depending on where the object should be placed.
    */
   private getIndex(bounds: any): number {
-
     let index: number = -1;
 
     const vMid: number = this.bounds.x + (this.bounds.width / 2);
@@ -292,21 +251,14 @@ export default class Superquad {
     const botQ: boolean = (bounds.y > hMid);
 
     if (bounds.x < vMid && bounds.x + bounds.width < vMid) {
-
       if (topQ) index = 1;
-
       else if (botQ) index = 2;
-
     } else if (bounds.x > vMid) {
-
       if (topQ) index = 0;
-
       else if (botQ) index = 3;
-
     }
 
     return index;
-
   }
 
   /**
@@ -315,7 +267,6 @@ export default class Superquad {
    * @private
    */
   private split() {
-
     const nextLevel: number = this.level + 1;
 
     const subW: number = Math.round(this.bounds.width / 2);
@@ -347,7 +298,5 @@ export default class Superquad {
       this.options,
       nextLevel
     );
-
   }
-
 }

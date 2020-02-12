@@ -4,7 +4,6 @@
  * Defines the options and their default values for each instance of Superquad.
  */
 export default class Options {
-
   /**
    * The maximum number of objects that can be stored in a quad before the
    * quad splits.
@@ -30,9 +29,6 @@ export default class Options {
    * @param {number} [options.maxLevels=4] THe maximum number of times a quad can split.
    */
   constructor(options: Object) {
-
     Object.assign(this, options);
-
   }
-
 }

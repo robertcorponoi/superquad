@@ -4,9 +4,7 @@ const chai = require('chai');
 const Quad = require('../index');
 
 describe('Making sure things get put in the right spot', () => {
-
   it('should get valid indices when inserting objects', () => {
-
     const quad = new Quad({ x: 0, y: 0, width: 640, height: 480 });
 
     const grid = 10;
@@ -17,7 +15,6 @@ describe('Making sure things get put in the right spot', () => {
     const numObjects = 1000;
 
     for (let i = 0; i < numObjects; i++) {
-
       const x = randomInRange(0, gridH) * grid;
       const y = randomInRange(0, gridV) * grid;
 
@@ -31,13 +28,10 @@ describe('Making sure things get put in the right spot', () => {
       const index = quad.getIndex(randomObject);
 
       chai.expect(index).to.be.greaterThan(-2) && chai.expect(index).to.be.lessThan(4);
-
     }
-
   });
 
   it('should place objects into the correct quad', () => {
-
     const quad = new Quad({ x: 0, y: 0, width: 100, height: 100 });
 
     let index;
@@ -96,9 +90,7 @@ describe('Making sure things get put in the right spot', () => {
     if (index !== 3) pass = false;
 
     chai.expect(pass).to.be.true;
-
   });
-
 });
 
 /**
@@ -110,7 +102,5 @@ describe('Making sure things get put in the right spot', () => {
  * @returns {number}
  */
 function randomInRange(min, max) {
-
   return Math.floor(Math.random() * (max - min + 1) + min);
-
 }

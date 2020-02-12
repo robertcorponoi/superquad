@@ -4,7 +4,6 @@
  * The bounds of an object describes its position within the space of the quadtree.
  */
 export default class Bounds {
-
   /**
    * The x position of the object. 
    * 
@@ -37,7 +36,6 @@ export default class Bounds {
    * @param {Object} obj The data of this game object including x, y, width, height and any other properties.
    */
   constructor(obj: any) {
-
     this.x = obj.x;
 
     this.y = obj.y;
@@ -45,7 +43,6 @@ export default class Bounds {
     this.width = obj.width;
 
     this.height = obj.height;
-
   }
 
   /**
@@ -55,11 +52,9 @@ export default class Bounds {
    * @returns {boolean}
    */
   public isPoint(): boolean {
-
     if (this.width == 0 || this.height == 0) return true;
 
     return false;
-
   }
 
   /**
@@ -70,7 +65,6 @@ export default class Bounds {
    * @returns {boolean}
    */
   public intersects(bounds: Bounds): boolean {
-
     const aMaxX: number = bounds.x + bounds.width;
     const aMaxY: number = bounds.y + bounds.height;
 
@@ -86,7 +80,5 @@ export default class Bounds {
     if (bounds.y > bMaxY) return false;
 
     return true;
-
   }
-
 }
