@@ -1,3 +1,8 @@
+## 1.2.0 / 2020-02-14
+- [MISC] Added tsconfig file that was somehow missing before.
+- [MISC] Created new build that has .d.ts files.
+- [MISC] Updated rollup to latest version.
+
 ## 1.0.1 / 2020-02-12
 - [MISC] Updated rollup-plugin-commonjs and rollup-plugin-node-resolve to their new @rollup versions.
 - [MISC] Updated dependencies to their latest versions.

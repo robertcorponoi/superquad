@@ -1,6 +1,6 @@
 {
   "name": "superquad",
-  "version": "1.0.1",
+  "version": "1.2.0",
   "description": "Superquad is yet another quadtree implementation for JavaScript that hopes to provide some additional functionality on top of standard quadtree implementations.",
   "main": "index.js",
   "module": "superquad.js",
@@ -41,7 +41,7 @@
     "@rollup/plugin-node-resolve": "^7.1.1",
     "chai": "^4.2.0",
     "mocha": "^7.0.1",
-    "rollup": "^1.31.0",
+    "rollup": "^1.31.1",
     "rollup-plugin-babel": "^4.3.3",
     "typescript": "^3.7.5"
   }
