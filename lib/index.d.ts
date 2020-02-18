@@ -1,5 +1,4 @@
 import Bounds from './bounds/Bounds';
-import Options from './options/Options';
 /**
  * A modern quadtree implementation for modern JavaScript games.
  */
@@ -7,45 +6,93 @@ export default class Superquad {
     /**
      * A reference to the options for this Quad.
      *
+     * @private
+     *
      * @property {Options}
      */
-    options: Options;
+    private _options;
     /**
      * The depth level of this quad.
      *
+     * @private
+     *
      * @property {number}
      */
-    level: number;
+    private _level;
     /**
      * The bounds of this quad (x, y, width, height).
      *
+     * @private
+     *
      * @property {Bounds}
      */
-    bounds: Bounds;
+    private _bounds;
     /**
      * The objects stored in this quad.
      *
+     * @private
+     *
      * @property {Array<Bounds>}
      */
-    objects: Array<Bounds>;
+    private _objects;
     /**
      * The subquads of this quad.
      *
+     * @private
+     *
      * @property {Array<Superquad>}
      */
-    nodes: Array<Superquad>;
+    private _nodes;
     /**
      * The total number of objects stored in this quad.
      *
+     * @private
+     *
      * @property {number}
      */
-    total: number;
+    private _total;
     /**
      * @param {Object} bounds The bounds of this quad (x, y, width, height).
+     * @param {number} [bounds.x=0] The x position of the top left point of the quad. This should only be set if you're working with negative position values.
+     * @param {number} [bounds.y=0] The y position of the top left point of the quad. This should only be set if you're working with negative position values.
+     * @param {number} bounds.width The width of the quad.
+     * @param {number} bounds.height The height of the quad.
      * @param {Object} options A reference to the options for this quad.
-     * @param {number} [level=0] The depth level of this quad.
+     * @param {number} [options.maxObjects=10] The maximum number of objects that can be stored in a quad before the quad splits.
+     * @param {number} [options.maxLevels=4] The maximum number of times a quad can split.
+     * @param {number} [level=0] Used internally when creating sub-quads.
      */
-    constructor(bounds: Object, options: Object, level?: number);
+    constructor(bounds: Object, options?: Object, level?: number);
+    /**
+     * Returns the level of this quad.
+     *
+     * @returns {number}
+     */
+    get level(): number;
+    /**
+     * Returns the bounds of this quad.
+     *
+     * @returns {Bounds}
+     */
+    get bounds(): Bounds;
+    /**
+     * Returns the objects in this quad.
+     *
+     * @returns {Array<Bounds>}
+     */
+    get objects(): Array<Bounds>;
+    /**
+     * Returns the subquads of this quad.
+     *
+     * @returns {Array<Superquad>}
+     */
+    get nodes(): Array<Superquad>;
+    /**
+     * Returns the total number of objects stored in this quad.
+     *
+     * @returns {number}
+     */
+    get total(): number;
     /**
      * Gets the total number of subquads within the main quad.
      *

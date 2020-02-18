@@ -10,57 +10,110 @@ export default class Superquad {
   /**
    * A reference to the options for this Quad.
    * 
+   * @private
+   * 
    * @property {Options}
    */
-  options: Options;
+  private _options: Options;
 
   /**
    * The depth level of this quad.
    * 
+   * @private
+   * 
    * @property {number}
    */
-  level: number;
+  private _level: number;
 
   /**
    * The bounds of this quad (x, y, width, height).
    * 
+   * @private
+   * 
    * @property {Bounds}
    */
-  bounds: Bounds;
+  private _bounds: Bounds;
 
   /**
    * The objects stored in this quad.
    * 
+   * @private
+   * 
    * @property {Array<Bounds>}
    */
-  objects: Array<Bounds> = [];
+  private _objects: Array<Bounds> = [];
 
   /**
    * The subquads of this quad.
    * 
+   * @private
+   * 
    * @property {Array<Superquad>}
    */
-  nodes: Array<Superquad> = [];
+  private _nodes: Array<Superquad> = [];
 
   /**
    * The total number of objects stored in this quad.
    * 
+   * @private
+   * 
    * @property {number}
    */
-  total: number = 0;
+  private _total: number = 0;
 
   /**
    * @param {Object} bounds The bounds of this quad (x, y, width, height).
+   * @param {number} [bounds.x=0] The x position of the top left point of the quad. This should only be set if you're working with negative position values.
+   * @param {number} [bounds.y=0] The y position of the top left point of the quad. This should only be set if you're working with negative position values.
+   * @param {number} bounds.width The width of the quad.
+   * @param {number} bounds.height The height of the quad.
    * @param {Object} options A reference to the options for this quad.
-   * @param {number} [level=0] The depth level of this quad.
+   * @param {number} [options.maxObjects=10] The maximum number of objects that can be stored in a quad before the quad splits.
+   * @param {number} [options.maxLevels=4] The maximum number of times a quad can split.
+   * @param {number} [level=0] Used internally when creating sub-quads.
    */
-  constructor(bounds: Object, options: Object, level: number = 0) {
-    this.bounds = new Bounds(bounds);
+  constructor(bounds: Object, options: Object = {}, level: number = 0) {
+    this._bounds = new Bounds(bounds);
 
-    this.options = new Options(options);
+    this._options = new Options(options);
 
-    this.level = level;
+    this._level = level;
   }
+
+  /**
+   * Returns the level of this quad.
+   * 
+   * @returns {number}
+   */
+  get level(): number { return this._level; }
+
+  /**
+   * Returns the bounds of this quad.
+   * 
+   * @returns {Bounds}
+   */
+  get bounds(): Bounds { return this._bounds; }
+
+  /**
+   * Returns the objects in this quad.
+   * 
+   * @returns {Array<Bounds>}
+   */
+  get objects(): Array<Bounds> { return this._objects; }
+
+  /**
+   * Returns the subquads of this quad.
+   * 
+   * @returns {Array<Superquad>}
+   */
+  get nodes(): Array<Superquad> { return this._nodes; }
+
+  /**
+   * Returns the total number of objects stored in this quad.
+   * 
+   * @returns {number}
+   */
+  get total(): number { return this._total; }
 
   /**
    * Gets the total number of subquads within the main quad.
@@ -70,7 +123,7 @@ export default class Superquad {
   totalNodes(): number {
     let total: number = 0;
 
-    for (const node of this.nodes) {
+    for (const node of this._nodes) {
       total++;
 
       total += node.totalNodes();
@@ -87,29 +140,29 @@ export default class Superquad {
   add(o: Object) {
     const bounds: Bounds = new Bounds(o);
 
-    this.total++;
+    this._total++;
 
     let i: number = 0;
     let index: number = 0;
 
-    if (this.nodes[0]) {
+    if (this._nodes[0]) {
       index = this.getIndex(bounds);
 
       if (index !== -1) {
-        this.nodes[index].add(bounds);
+        this._nodes[index].add(bounds);
 
         return;
       }
     }
 
-    this.objects.push(bounds);
+    this._objects.push(bounds);
 
-    if (this.objects.length > this.options.maxObjects && this.level < this.options.maxLevels) {
-      if (!this.nodes[0]) this.split();
-      while (i < this.objects.length) {
-        index = this.getIndex(this.objects[i]);
+    if (this._objects.length > this._options.maxObjects && this._level < this._options.maxLevels) {
+      if (!this._nodes[0]) this.split();
+      while (i < this._objects.length) {
+        index = this.getIndex(this._objects[i]);
 
-        if (index !== -1) this.nodes[index].add(this.objects.splice(i, 1)[0]);
+        if (index !== -1) this._nodes[index].add(this._objects.splice(i, 1)[0]);
         else i = i + 1;
       }
     }
@@ -130,15 +183,15 @@ export default class Superquad {
 
     const index: number = this.getIndex(bounds);
 
-    let returnObjects: Array<Bounds> = this.objects;
+    let returnObjects: Array<Bounds> = this._objects;
 
-    if (this.nodes[0]) {
+    if (this._nodes[0]) {
       if (index !== -1) {
-        returnObjects = returnObjects.concat(this.nodes[index].get(o, del));
+        returnObjects = returnObjects.concat(this._nodes[index].get(o, del));
 
-        quad = this.nodes[index];
+        quad = this._nodes[index];
       }
-      else for (const node of this.nodes) {
+      else for (const node of this._nodes) {
         returnObjects = returnObjects.concat(node.get(o, del));
 
         quad = node;
@@ -210,13 +263,13 @@ export default class Superquad {
    * Clears all objects and nodes from the quad.
    */
   clear() {
-    this.objects = [];
+    this._objects = [];
 
-    this.total = 0;
+    this._total = 0;
 
-    for (const node of this.nodes) node.clear();
+    for (const node of this._nodes) node.clear();
 
-    this.nodes = [];
+    this._nodes = [];
   }
 
   /**
@@ -229,7 +282,7 @@ export default class Superquad {
    * @param {Bounds} bounds The bounds that define the objects.
    */
   private cleanup(quad: Superquad, bounds: Bounds) {
-    quad.objects = quad.objects.filter((o) => o != bounds);
+    quad._objects = quad._objects.filter((o) => o != bounds);
   }
 
   /**
@@ -244,8 +297,8 @@ export default class Superquad {
   private getIndex(bounds: any): number {
     let index: number = -1;
 
-    const vMid: number = this.bounds.x + (this.bounds.width / 2);
-    const hMid: number = this.bounds.y + (this.bounds.height / 2);
+    const vMid: number = this._bounds.x + (this._bounds.width / 2);
+    const hMid: number = this._bounds.y + (this._bounds.height / 2);
 
     const topQ: boolean = (bounds.y < hMid && bounds.y + bounds.height < hMid);
     const botQ: boolean = (bounds.y > hMid);
@@ -267,35 +320,35 @@ export default class Superquad {
    * @private
    */
   private split() {
-    const nextLevel: number = this.level + 1;
+    const nextLevel: number = this._level + 1;
 
-    const subW: number = Math.round(this.bounds.width / 2);
-    const subH: number = Math.round(this.bounds.height / 2);
+    const subW: number = Math.round(this._bounds.width / 2);
+    const subH: number = Math.round(this._bounds.height / 2);
 
-    const x: number = Math.round(this.bounds.x);
-    const y: number = Math.round(this.bounds.y);
+    const x: number = Math.round(this._bounds.x);
+    const y: number = Math.round(this._bounds.y);
 
-    this.nodes[0] = new Superquad(
+    this._nodes[0] = new Superquad(
       new Bounds({ x: x + subW, y: y, width: subW, height: subH }),
-      this.options,
+      this._options,
       nextLevel
     );
 
-    this.nodes[1] = new Superquad(
+    this._nodes[1] = new Superquad(
       new Bounds({ x: x, y: y, width: subW, height: subH }),
-      this.options,
+      this._options,
       nextLevel
     );
 
-    this.nodes[2] = new Superquad(
+    this._nodes[2] = new Superquad(
       new Bounds({ x: x, y: y + subH, width: subW, height: subH }),
-      this.options,
+      this._options,
       nextLevel
     );
 
-    this.nodes[3] = new Superquad(
+    this._nodes[3] = new Superquad(
       new Bounds({ x: x + subW, y: y + subH, width: subW, height: subH }),
-      this.options,
+      this._options,
       nextLevel
     );
   }

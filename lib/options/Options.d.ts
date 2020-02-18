@@ -3,12 +3,11 @@
  */
 export default class Options {
     /**
-     * The maximum number of objects that can be stored in a quad before the
-     * quad splits.
+     * The maximum number of objects that can be stored in a quad before the quad splits.
      *
      * @property {number}
      *
-     * @default 4
+     * @default 10
      */
     maxObjects: number;
     /**

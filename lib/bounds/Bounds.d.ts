@@ -1,35 +1,45 @@
 /**
- * The bounds of an object describes its position within the space of the quadtree.
+ * Bounds are used to specify an object's position in 2D space.
+ *
+ * Both quadtrees and objects added to quadtrees use this bounds object.
  */
 export default class Bounds {
     /**
      * The x position of the object.
      *
      * @property {number}
+     *
+     * @default 0
      */
     x: number;
     /**
      * The y position of the object.
      *
      * @property {number}
+     *
+     * @default 0
      */
     y: number;
     /**
      * The width of the object.
      *
      * @property {number}
+     *
+     * @default 0
      */
     width: number;
     /**
      * The height of the object.
      *
      * @property {number}
+     *
+     * @default 0
      */
     height: number;
     /**
-     * @param {Object} obj The data of this game object including x, y, width, height and any other properties.
+     * @param {Object} bounds The data of the object including x, y, width, and height.
      */
-    constructor(obj: any);
+    constructor(bounds: Object);
     /**
      * Checks to see if this Bounds object is a point, meaning it has no width
      * or height.

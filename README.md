@@ -44,24 +44,44 @@ import Superquad from 'superquad';
 
 ## **Usage**
 
-To create a new quadtree, you have to create a new instance of Superquad like so:
+To create a new instance of Superquad, you have to supply at minimum the width and height of the quadtree:
 
 ```js
-const superquad = new Superquad();
+const dimensions = {
+  width: 1024,
+  height: 768
+};
+
+const superquad = new Superquad(dimensions);
 ```
 
-For now there are two options that can be provided upon initalization:
-
-| param      	| type   	| description                                                             	| default 	|
-|------------	|--------	|-------------------------------------------------------------------------	|---------	|
-| maxObjects 	| number 	| The amount of objects a quad can hold before it splits into 4 sub-quads 	| 10      	|
-| maxLevels  	| number 	| The number of sub-quads a quad can have.                                	| 4       	|
-
-So let's say you want to have 20 objects in the quad before it splits into sub-quad, you could do:
+Now let's say you want to customize Superquad further and adjust the number of objects a quad can hold before it splits:
 
 ```js
-const superquad = new Superquad({ maxObjects: 20 });
+const dimensions = {
+  width: 1024,
+  height: 768
+};
+
+const options = {
+  maxObjects: 20
+};
+
+const superquad = new Superquad(dimensions, options);
 ```
+
+The complete layout of initialization parameters is as follows:
+
+| param      	        | type   	| description                                                             	                                                 | default 	|
+|-------------------	|--------	|--------------------------------------------------------------------------------------------------------------------------- |---------	|
+| bounds              | Object  |                                                                                                                            |          |
+| bounds.x            | number  | The x position of the top left point of the quad. This should only be set if you're working with negative position values. | 0        |
+| bounds.y            | number  | The y position of the top left point of the quad. This should only be set if you're working with negative position values. | 0        |
+| bounds.width        | number  | The width of the quadtree.                                                                                                 |          |
+| bounds.height       | number  | The height of the quadtree.                                                                                                |          |
+| options             |         |                                                                                                                            |          |
+| options.maxObjects 	| number 	| The amount of objects a quad can hold before it splits into 4 sub-quads 	                                                 | 10      	|
+| options.maxLevels  	| number 	| The number of sub-quads a quad can have.                                	                                                 | 4       	|
 
 ## **API**
 

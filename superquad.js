@@ -42,44 +42,49 @@ function () {
    * The x position of the object. 
    * 
    * @property {number}
+   * 
+   * @default 0
    */
 
   /**
    * The y position of the object. 
    * 
    * @property {number}
+   * 
+   * @default 0
    */
 
   /**
    * The width of the object. 
    * 
    * @property {number}
+   * 
+   * @default 0
    */
 
   /**
    * The height of the object. 
    * 
    * @property {number}
+   * 
+   * @default 0
    */
 
   /**
-   * @param {Object} obj The data of this game object including x, y, width, height and any other properties.
+   * @param {Object} bounds The data of the object including x, y, width, and height.
    */
-  function Bounds(obj) {
+  function Bounds(bounds) {
     _classCallCheck(this, Bounds);
 
-    _defineProperty(this, "x", void 0);
+    _defineProperty(this, "x", 0);
 
-    _defineProperty(this, "y", void 0);
+    _defineProperty(this, "y", 0);
 
-    _defineProperty(this, "width", void 0);
+    _defineProperty(this, "width", 0);
 
-    _defineProperty(this, "height", void 0);
+    _defineProperty(this, "height", 0);
 
-    this.x = obj.x;
-    this.y = obj.y;
-    this.width = obj.width;
-    this.height = obj.height;
+    Object.assign(this, bounds);
   }
   /**
    * Checks to see if this Bounds object is a point, meaning it has no width
@@ -123,12 +128,11 @@ function () {
 
 var Options =
 /**
- * The maximum number of objects that can be stored in a quad before the
- * quad splits.
+ * The maximum number of objects that can be stored in a quad before the quad splits.
  * 
  * @property {number}
  * 
- * @default 4
+ * @default 10
  */
 
 /**
@@ -164,11 +168,15 @@ function () {
   /**
    * A reference to the options for this Quad.
    * 
+   * @private
+   * 
    * @property {Options}
    */
 
   /**
    * The depth level of this quad.
+   * 
+   * @private
    * 
    * @property {number}
    */
@@ -176,11 +184,15 @@ function () {
   /**
    * The bounds of this quad (x, y, width, height).
    * 
+   * @private
+   * 
    * @property {Bounds}
    */
 
   /**
    * The objects stored in this quad.
+   * 
+   * @private
    * 
    * @property {Array<Bounds>}
    */
@@ -188,43 +200,54 @@ function () {
   /**
    * The subquads of this quad.
    * 
+   * @private
+   * 
    * @property {Array<Superquad>}
    */
 
   /**
    * The total number of objects stored in this quad.
    * 
+   * @private
+   * 
    * @property {number}
    */
 
   /**
    * @param {Object} bounds The bounds of this quad (x, y, width, height).
+   * @param {number} [bounds.x=0] The x position of the top left point of the quad. This should only be set if you're working with negative position values.
+   * @param {number} [bounds.y=0] The y position of the top left point of the quad. This should only be set if you're working with negative position values.
+   * @param {number} bounds.width The width of the quad.
+   * @param {number} bounds.height The height of the quad.
    * @param {Object} options A reference to the options for this quad.
-   * @param {number} [level=0] The depth level of this quad.
+   * @param {number} [options.maxObjects=10] The maximum number of objects that can be stored in a quad before the quad splits.
+   * @param {number} [options.maxLevels=4] The maximum number of times a quad can split.
+   * @param {number} [level=0] Used internally when creating sub-quads.
    */
-  function Superquad(bounds, options) {
+  function Superquad(bounds) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     var level = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
 
     _classCallCheck(this, Superquad);
 
-    _defineProperty(this, "options", void 0);
+    _defineProperty(this, "_options", void 0);
 
-    _defineProperty(this, "level", void 0);
+    _defineProperty(this, "_level", void 0);
 
-    _defineProperty(this, "bounds", void 0);
+    _defineProperty(this, "_bounds", void 0);
 
-    _defineProperty(this, "objects", []);
+    _defineProperty(this, "_objects", []);
 
-    _defineProperty(this, "nodes", []);
+    _defineProperty(this, "_nodes", []);
 
-    _defineProperty(this, "total", 0);
+    _defineProperty(this, "_total", 0);
 
-    this.bounds = new Bounds(bounds);
-    this.options = new Options(options);
-    this.level = level;
+    this._bounds = new Bounds(bounds);
+    this._options = new Options(options);
+    this._level = level;
   }
   /**
-   * Gets the total number of subquads within the main quad.
+   * Returns the level of this quad.
    * 
    * @returns {number}
    */
@@ -232,6 +255,12 @@ function () {
 
   _createClass(Superquad, [{
     key: "totalNodes",
+
+    /**
+     * Gets the total number of subquads within the main quad.
+     * 
+     * @returns {number}
+     */
     value: function totalNodes() {
       var total = 0;
       var _iteratorNormalCompletion = true;
@@ -239,7 +268,7 @@ function () {
       var _iteratorError = undefined;
 
       try {
-        for (var _iterator = this.nodes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        for (var _iterator = this._nodes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var node = _step.value;
           total++;
           total += node.totalNodes();
@@ -271,27 +300,28 @@ function () {
     key: "add",
     value: function add(o) {
       var bounds = new Bounds(o);
-      this.total++;
+      this._total++;
       var i = 0;
       var index = 0;
 
-      if (this.nodes[0]) {
+      if (this._nodes[0]) {
         index = this.getIndex(bounds);
 
         if (index !== -1) {
-          this.nodes[index].add(bounds);
+          this._nodes[index].add(bounds);
+
           return;
         }
       }
 
-      this.objects.push(bounds);
+      this._objects.push(bounds);
 
-      if (this.objects.length > this.options.maxObjects && this.level < this.options.maxLevels) {
-        if (!this.nodes[0]) this.split();
+      if (this._objects.length > this._options.maxObjects && this._level < this._options.maxLevels) {
+        if (!this._nodes[0]) this.split();
 
-        while (i < this.objects.length) {
-          index = this.getIndex(this.objects[i]);
-          if (index !== -1) this.nodes[index].add(this.objects.splice(i, 1)[0]);else i = i + 1;
+        while (i < this._objects.length) {
+          index = this.getIndex(this._objects[i]);
+          if (index !== -1) this._nodes[index].add(this._objects.splice(i, 1)[0]);else i = i + 1;
         }
       }
     }
@@ -311,19 +341,19 @@ function () {
       var quad = this;
       var bounds = new Bounds(o);
       var index = this.getIndex(bounds);
-      var returnObjects = this.objects;
+      var returnObjects = this._objects;
 
-      if (this.nodes[0]) {
+      if (this._nodes[0]) {
         if (index !== -1) {
-          returnObjects = returnObjects.concat(this.nodes[index].get(o, del));
-          quad = this.nodes[index];
+          returnObjects = returnObjects.concat(this._nodes[index].get(o, del));
+          quad = this._nodes[index];
         } else {
           var _iteratorNormalCompletion2 = true;
           var _didIteratorError2 = false;
           var _iteratorError2 = undefined;
 
           try {
-            for (var _iterator2 = this.nodes[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            for (var _iterator2 = this._nodes[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
               var node = _step2.value;
               returnObjects = returnObjects.concat(node.get(o, del));
               quad = node;
@@ -450,14 +480,14 @@ function () {
   }, {
     key: "clear",
     value: function clear() {
-      this.objects = [];
-      this.total = 0;
+      this._objects = [];
+      this._total = 0;
       var _iteratorNormalCompletion5 = true;
       var _didIteratorError5 = false;
       var _iteratorError5 = undefined;
 
       try {
-        for (var _iterator5 = this.nodes[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+        for (var _iterator5 = this._nodes[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
           var node = _step5.value;
           node.clear();
         }
@@ -476,7 +506,7 @@ function () {
         }
       }
 
-      this.nodes = [];
+      this._nodes = [];
     }
     /**
      * Checks to see if an object needs to be deleted from the quad and if so it deletes
@@ -491,7 +521,7 @@ function () {
   }, {
     key: "cleanup",
     value: function cleanup(quad, bounds) {
-      quad.objects = quad.objects.filter(function (o) {
+      quad._objects = quad._objects.filter(function (o) {
         return o != bounds;
       });
     }
@@ -509,8 +539,8 @@ function () {
     key: "getIndex",
     value: function getIndex(bounds) {
       var index = -1;
-      var vMid = this.bounds.x + this.bounds.width / 2;
-      var hMid = this.bounds.y + this.bounds.height / 2;
+      var vMid = this._bounds.x + this._bounds.width / 2;
+      var hMid = this._bounds.y + this._bounds.height / 2;
       var topQ = bounds.y < hMid && bounds.y + bounds.height < hMid;
       var botQ = bounds.y > hMid;
 
@@ -531,35 +561,84 @@ function () {
   }, {
     key: "split",
     value: function split() {
-      var nextLevel = this.level + 1;
-      var subW = Math.round(this.bounds.width / 2);
-      var subH = Math.round(this.bounds.height / 2);
-      var x = Math.round(this.bounds.x);
-      var y = Math.round(this.bounds.y);
-      this.nodes[0] = new Superquad(new Bounds({
+      var nextLevel = this._level + 1;
+      var subW = Math.round(this._bounds.width / 2);
+      var subH = Math.round(this._bounds.height / 2);
+      var x = Math.round(this._bounds.x);
+      var y = Math.round(this._bounds.y);
+      this._nodes[0] = new Superquad(new Bounds({
         x: x + subW,
         y: y,
         width: subW,
         height: subH
-      }), this.options, nextLevel);
-      this.nodes[1] = new Superquad(new Bounds({
+      }), this._options, nextLevel);
+      this._nodes[1] = new Superquad(new Bounds({
         x: x,
         y: y,
         width: subW,
         height: subH
-      }), this.options, nextLevel);
-      this.nodes[2] = new Superquad(new Bounds({
+      }), this._options, nextLevel);
+      this._nodes[2] = new Superquad(new Bounds({
         x: x,
         y: y + subH,
         width: subW,
         height: subH
-      }), this.options, nextLevel);
-      this.nodes[3] = new Superquad(new Bounds({
+      }), this._options, nextLevel);
+      this._nodes[3] = new Superquad(new Bounds({
         x: x + subW,
         y: y + subH,
         width: subW,
         height: subH
-      }), this.options, nextLevel);
+      }), this._options, nextLevel);
+    }
+  }, {
+    key: "level",
+    get: function get() {
+      return this._level;
+    }
+    /**
+     * Returns the bounds of this quad.
+     * 
+     * @returns {Bounds}
+     */
+
+  }, {
+    key: "bounds",
+    get: function get() {
+      return this._bounds;
+    }
+    /**
+     * Returns the objects in this quad.
+     * 
+     * @returns {Array<Bounds>}
+     */
+
+  }, {
+    key: "objects",
+    get: function get() {
+      return this._objects;
+    }
+    /**
+     * Returns the subquads of this quad.
+     * 
+     * @returns {Array<Superquad>}
+     */
+
+  }, {
+    key: "nodes",
+    get: function get() {
+      return this._nodes;
+    }
+    /**
+     * Returns the total number of objects stored in this quad.
+     * 
+     * @returns {number}
+     */
+
+  }, {
+    key: "total",
+    get: function get() {
+      return this._total;
     }
   }]);
 

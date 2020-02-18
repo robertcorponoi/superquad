@@ -1,3 +1,10 @@
+## 1.2.1 / 2020-02-17
+- [FEATURE] Made all properties private as they are not meant to be set. To avoid creating a breaking change there are now getters for all properties. 
+- [FEATURE] Added default values to bounds object so that only width and height have to be specified when creating a new instance of Superquad.
+- [FEATURE] Made the options optional when initializing a new instance of Superquad as it was originally meant to be.
+- [DOCS] Added key information that was missing about creating a new instance of Superquad in the README.
+- [DOCS] Updated some JSDOC comments.
+
 ## 1.2.0 / 2020-02-14
 - [MISC] Added tsconfig file that was somehow missing before.
 - [MISC] Created new build that has .d.ts files.
