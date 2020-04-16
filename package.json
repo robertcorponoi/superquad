@@ -1,6 +1,6 @@
 {
   "name": "superquad",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Superquad is yet another quadtree implementation for JavaScript that hopes to provide some additional functionality on top of standard quadtree implementations.",
   "main": "index.js",
   "module": "superquad.js",
@@ -32,17 +32,17 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.8.4",
+    "@babel/core": "^7.9.0",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/plugin-proposal-object-rest-spread": "^7.8.3",
-    "@babel/preset-env": "^7.8.4",
-    "@babel/preset-typescript": "^7.8.3",
-    "@rollup/plugin-commonjs": "^11.0.2",
-    "@rollup/plugin-node-resolve": "^7.1.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.9.5",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-typescript": "^7.9.0",
+    "@rollup/plugin-commonjs": "^11.1.0",
+    "@rollup/plugin-node-resolve": "^7.1.3",
     "chai": "^4.2.0",
-    "mocha": "^7.0.1",
-    "rollup": "^1.31.1",
-    "rollup-plugin-babel": "^4.3.3",
-    "typescript": "^3.7.5"
+    "mocha": "^7.1.1",
+    "rollup": "^2.6.1",
+    "rollup-plugin-babel": "^4.4.0",
+    "typescript": "^3.8.3"
   }
 }

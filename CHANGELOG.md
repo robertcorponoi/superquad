@@ -1,3 +1,6 @@
+## 1.2.2 / 2020-04-16
+- [MISC] Updated out-of-date dependencies to their latest versions which also fixed all possible fixed security vulnerabilities.
+
 ## 1.2.1 / 2020-02-17
 - [FEATURE] Made all properties private as they are not meant to be set. To avoid creating a breaking change there are now getters for all properties. 
 - [FEATURE] Added default values to bounds object so that only width and height have to be specified when creating a new instance of Superquad.
