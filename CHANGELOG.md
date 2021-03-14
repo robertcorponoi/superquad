@@ -1,3 +1,6 @@
+## 1.2.3 / 2021-03-14
+- [MISC] Updated out-of-date dependencies to their latest versions which also fixed all possible fixed security vulnerabilities.
+
 ## 1.2.2 / 2020-04-16
 - [MISC] Updated out-of-date dependencies to their latest versions which also fixed all possible fixed security vulnerabilities.
 
